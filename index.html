@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kartik Parab — Portfolio</title>
+<meta name="description" content="Kartik Parab: software developer building backend systems and web applications with C++, Python, FastAPI, React and SQL.">
+<meta property="og:title" content="Kartik Parab — Portfolio">
+<meta property="og:description" content="Software developer. Projects, skills and education.">
+<style>
+  :root {
+    --bg: #0f1115;
+    --surface: #171a21;
+    --surface-2: #1e222b;
+    --border: #2a2f3a;
+    --text: #e7e9ee;
+    --muted: #9aa3b2;
+    --accent: #3fd0b0;
+    --accent-2: #5aa9ff;
+    --on-accent: #06110e;
+    --header-bg: rgba(15, 17, 21, 0.82);
+    --radius: 14px;
+    --max: 1040px;
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --surface-2: #eef1f7;
+    --border: #dde2ec;
+    --text: #151823;
+    --muted: #5b6475;
+    --accent: #0f8f77;
+    --accent-2: #2766d6;
+    --on-accent: #ffffff;
+    --header-bg: rgba(247, 248, 251, 0.85);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    transition: background .3s ease, color .3s ease;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; cursor: pointer; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  section { padding: 88px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .eyebrow {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); font-weight: 600; margin-bottom: 10px;
+  }
+  .lead { color: var(--muted); max-width: 680px; margin-bottom: 40px; }
+
+  /* Nav */
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--header-bg); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  header.top .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; gap: 16px;
+  }
+  .brand { font-weight: 700; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 22px; }
+  nav ul { list-style: none; display: flex; gap: 22px; }
+  nav a { color: var(--muted); font-size: 0.95rem; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  .theme-toggle {
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 12px; font-size: 0.85rem;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+
+  /* Hero */
+  .hero { padding: 120px 0 96px; border-top: none; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  }
+  .hero .role { margin-top: 14px; font-size: clamp(1.15rem, 2.4vw, 1.4rem); color: var(--muted); }
+  .hero .role span {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 600;
+  }
+  .hero p.intro { margin-top: 22px; max-width: 640px; color: var(--muted); }
+  .cta { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block; padding: 11px 20px; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem; border: 1px solid var(--border);
+    color: var(--text); background: var(--surface);
+  }
+  .btn:hover { text-decoration: none; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .contact-reveal { display: none; margin-top: 22px; }
+  .contact-reveal.open { display: flex; flex-wrap: wrap; gap: 10px; }
+  .contact-reveal a { font-size: 0.92rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; }
+  .about-grid p { color: var(--muted); margin-bottom: 16px; }
+  .facts { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+  .facts dt { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 14px; }
+  .facts dt:first-child { margin-top: 0; }
+  .facts dd { color: var(--text); font-weight: 500; }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 48px; }
+  .service { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .service .icon {
+    width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--surface-2); color: var(--accent); font-weight: 700; margin-bottom: 14px;
+  }
+  .service h3 { font-size: 1.02rem; margin-bottom: 6px; }
+  .service p { color: var(--muted); font-size: 0.92rem; }
+
+  /* Projects */
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  .filter {
+    background: var(--surface); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 0.9rem;
+  }
+  .filter:hover { color: var(--text); border-color: var(--accent); }
+  .filter[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+    display: flex; flex-direction: column;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .card[hidden] { display: none; }
+  .card .num { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .card h3 { font-size: 1.2rem; margin: 6px 0 10px; letter-spacing: -0.01em; }
+  .card p { color: var(--muted); font-size: 0.96rem; margin-bottom: 14px; }
+  .card ul { color: var(--muted); font-size: 0.94rem; padding-left: 18px; margin-bottom: 16px; }
+  .card li { margin-bottom: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .tag {
+    font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--muted);
+  }
+
+  /* Skills */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+  .skill-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .skill-box h3 { font-size: 0.95rem; margin-bottom: 12px; }
+
+  /* Education */
+  .edu { display: grid; gap: 16px; }
+  .edu-item {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px;
+  }
+  .edu-item h3 { font-size: 1.05rem; }
+  .edu-item p { color: var(--muted); font-size: 0.95rem; }
+  .edu-item .score { color: var(--accent); font-weight: 600; white-space: nowrap; }
+
+  /* Contact */
+  .contact p.big { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 26px; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .card { transition: none; }
+  }
+  @media (max-width: 760px) {
+    nav ul { gap: 14px; }
+    nav li:nth-child(n+4) { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    section { padding: 68px 0; }
+    .hero { padding: 84px 0 70px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Kartik Parab</a>
+    <div class="nav-right">
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">Light</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap reveal">
+      <p class="eyebrow">Software Developer</p>
+      <h1>Hi, I'm Kartik.</h1>
+      <p class="role">I build <span>backend systems and web applications</span>.</p>
+      <p class="intro">Electronics and Computer Science undergraduate with strong fundamentals in data structures, algorithms and databases. I build with C++, Python, FastAPI and React, and I'm looking for a software developer role.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects</a>
+        <button class="btn" id="contactToggle" type="button" aria-expanded="false" aria-controls="contactReveal">Show contacts</button>
+      </div>
+      <div class="contact-reveal" id="contactReveal">
+        <a href="mailto:kartikparab28@gmail.com">kartikparab28@gmail.com</a>
+        <a href="https://linkedin.com/in/kartik-parab-12060802s">LinkedIn</a>
+        <a href="https://github.com/kartikparab28">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="eyebrow">About</p>
+          <h2>A bit about me</h2>
+          <p>I'm an Electronics and Computer Science student at Shah and Anchor Kutchhi Engineering College in Mumbai. I enjoy writing clean, efficient code and applying data structures and algorithms to build reliable applications.</p>
+          <p>My projects range from a C++ collaborative task board with live updates, to a React and FastAPI finance dashboard, to a Python desktop parking system. I'm comfortable across the stack, and I like working on the parts that need careful design, such as data models and query performance.</p>
+        </div>
+        <dl class="facts reveal">
+          <dt>Location</dt><dd>Mumbai, India</dd>
+          <dt>Focus</dt><dd>Backend, web apps, databases</dd>
+          <dt>Degree</dt><dd>B.Tech, Electronics &amp; Computer Science (2023 – Present)</dd>
+          <dt>Looking for</dt><dd>Software Developer role</dd>
+        </dl>
+      </div>
+
+      <div class="services">
+        <div class="service reveal">
+          <div class="icon">B</div>
+          <h3>Backend</h3>
+          <p>APIs and services with FastAPI, Flask and C++ (Drogon), with JWT authentication.</p>
+        </div>
+        <div class="service reveal">
+          <div class="icon">F</div>
+          <h3>Frontend</h3>
+          <p>Interactive dashboards and interfaces with React, Recharts, HTML and CSS.</p>
+        </div>
+        <div class="service reveal">
+          <div class="icon">DB</div>
+          <h3>Databases</h3>
+          <p>Schema design and querying with SQL, PostgreSQL and MySQL.</p>
+        </div>
+        <div class="service reveal">
+          <div class="icon">CS</div>
+          <h3>Core CS</h3>
+          <p>Data structures and algorithms, OOP, computer networks and DBMS fundamentals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Projects</p>
+        <h2>Selected work</h2>
+        <p class="lead">Full-stack, backend and desktop projects.</p>
+      </div>
+      <div class="filters reveal" role="group" aria-label="Filter projects">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-filter="web" aria-pressed="false">Web Apps</button>
+        <button class="filter" type="button" data-filter="desktop" aria-pressed="false">Desktop</button>
+      </div>
+      <div class="grid">
+
+        <article class="card reveal" data-cat="web">
+          <span class="num">01</span>
+          <h3>TaskFlow — Real-Time Collaborative Task Board</h3>
+          <p>A Trello-style task board with a C++ backend on the Drogon async framework.</p>
+          <ul>
+            <li>Live multi-user updates over WebSockets, so changes appear for all collaborators without a refresh.</li>
+            <li>JWT-based authentication, with users, boards and tasks stored in PostgreSQL.</li>
+            <li>Shared boards where multiple users create, organise and manage tasks.</li>
+          </ul>
+          <div class="tags"><span class="tag">C++</span><span class="tag">Drogon</span><span class="tag">WebSockets</span><span class="tag">PostgreSQL</span><span class="tag">REST API</span></div>
+        </article>
+
+        <article class="card reveal" data-cat="web">
+          <span class="num">02</span>
+          <h3>Moneta — AI-Based Personal Finance Dashboard</h3>
+          <p>A dashboard for tracking expenses, setting budgets and analysing spending habits.</p>
+          <ul>
+            <li>Category-wise and monthly spending visualisations built with React and Recharts.</li>
+            <li>FastAPI backend with PostgreSQL to store and query transaction data.</li>
+            <li>RESTful APIs connecting the frontend to the backend for real-time data updates.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">React.js</span><span class="tag">FastAPI</span><span class="tag">SQL</span><span class="tag">Recharts</span></div>
+        </article>
+
+        <article class="card reveal" data-cat="desktop">
+          <span class="num">03</span>
+          <h3>Smart Vehicle Parking Management System</h3>
+          <p>A desktop app for tracking open parking slots and calculating fees by duration of stay.</p>
+          <ul>
+            <li>Tkinter GUI to log vehicle entry and exit times and track slot status.</li>
+            <li>MySQL database to persist vehicle logs and slot status across sessions.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Tkinter</span><span class="tag">MySQL</span></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Skills</p>
+        <h2>What I work with</h2>
+        <p class="lead">Languages, frameworks and tools I use day to day.</p>
+      </div>
+      <div class="skills reveal">
+        <div class="skill-box">
+          <h3>Languages</h3>
+          <div class="tags"><span class="tag">C++</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span></div>
+        </div>
+        <div class="skill-box">
+          <h3>Web &amp; Backend</h3>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">REST APIs</span><span class="tag">React</span></div>
+        </div>
+        <div class="skill-box">
+          <h3>Databases &amp; Querying</h3>
+          <div class="tags"><span class="tag">MySQL Workbench</span><span class="tag">PhpMyAdmin</span><span class="tag">Excel</span><span class="tag">PostgreSQL</span></div>
+        </div>
+        <div class="skill-box">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="tags"><span class="tag">VS Code</span><span class="tag">XAMPP</span><span class="tag">GitHub</span><span class="tag">Replit</span><span class="tag">Render</span></div>
+        </div>
+        <div class="skill-box">
+          <h3>Core Competencies</h3>
+          <div class="tags"><span class="tag">DSA</span><span class="tag">OOP</span><span class="tag">Computer Networks</span><span class="tag">DBMS</span></div>
+        </div>
+        <div class="skill-box">
+          <h3>Soft Skills</h3>
+          <div class="tags"><span class="tag">Communication</span><span class="tag">Teamwork</span><span class="tag">Time management</span><span class="tag">Adaptability</span><span class="tag">Attention to detail</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Education</p>
+        <h2>Academic background</h2>
+      </div>
+      <div class="edu reveal">
+        <div class="edu-item">
+          <div>
+            <h3>B.Tech, Electronics and Computer Science</h3>
+            <p>Shah and Anchor Kutchhi Engineering College · Aug 2023 – Present</p>
+          </div>
+          <div class="score">GPA 7.9 / 10.0</div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <h3>Junior College (HSC)</h3>
+            <p>Kishinchand Chellaram College · 2021 – 2023</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap reveal">
+      <p class="eyebrow">Contact</p>
+      <p class="big">Let's build something useful together.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:kartikparab28@gmail.com">kartikparab28@gmail.com</a>
+        <a class="btn" href="https://linkedin.com/in/kartik-parab-12060802s">LinkedIn</a>
+        <a class="btn" href="https://github.com/kartikparab28">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kartik Parab</span>
+    <span>Built with plain HTML, CSS and JavaScript</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // Scroll reveal
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function (el) { io.observe(el); });
+    }
+
+    // Theme toggle (remembered per viewer when storage is available)
+    var root = document.documentElement;
+    var toggle = document.getElementById('themeToggle');
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      toggle.textContent = t === 'dark' ? 'Light' : 'Dark';
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    applyTheme(saved === 'light' ? 'light' : 'dark');
+    toggle.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+    // Contact reveal in hero
+    var cBtn = document.getElementById('contactToggle');
+    var cBox = document.getElementById('contactReveal');
+    cBtn.addEventListener('click', function () {
+      var open = cBox.classList.toggle('open');
+      cBtn.setAttribute('aria-expanded', String(open));
+      cBtn.textContent = open ? 'Hide contacts' : 'Show contacts';
+    });
+
+    // Project filters
+    var filters = document.querySelectorAll('.filter');
+    var cards = document.querySelectorAll('.card[data-cat]');
+    filters.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.getAttribute('data-filter');
+        filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+        cards.forEach(function (c) {
+          c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f);
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
